@@ -1,0 +1,138 @@
+/* stylee3.css — Gorgeous Orange Signup Page (matches your login style) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ff8a00, #e52e00, #ff5e3a);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.signup-form {
+    background: white;
+    width: 100%;
+    max-width: 450px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    animation: slideUp 0.7s ease-out;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(60px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+}
+
+.signup-form h2 {
+    background: linear-gradient(to right, #ff4500, #ff6b00);
+    color: white;
+    text-align: center;
+    padding: 28px 20px;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+form {
+    padding: 40px 40px;
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-group label {
+    display: block;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 9px;
+    font-size: 15px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 15px 18px;
+    border: 2px solid #ffcc99;
+    border-radius: 14px;
+    font-size: 16px;
+    background-color: #fff9f0;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #ff6b00;
+    background-color: white;
+    box-shadow: 0 0 0 5px rgba(255, 107, 0, 0.25);
+    transform: scale(1.02);
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 17px;
+    background: linear-gradient(135deg, #ff4500, #ff6b00);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 19px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: all 0.4s;
+    box-shadow: 0 8px 20px rgba(255, 69, 0, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+button[type="submit"]:hover {
+    background: linear-gradient(135deg, #e03d00, #ff5500);
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(255, 69, 0, 0.5);
+}
+
+button[type="submit"]:active {
+    transform: translateY(0);
+}
+
+/* Back to Login link (optional - add in HTML if you want) */
+.signup-form p {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 15px;
+    color: #555;
+}
+
+.signup-form p a {
+    color: #ff4500;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.signup-form p a:hover {
+    text-decoration: underline;
+    color: #cc3700;
+}
+
+/* Mobile Friendly */
+@media (max-width: 480px) {
+    .signup-form {
+        border-radius: 15px;
+        margin: 10px;
+    }
+    form {
+        padding: 30px 25px;
+    }
+    .signup-form h2 {
+        font-size: 26px;
+        padding: 22px;
+    }
+}

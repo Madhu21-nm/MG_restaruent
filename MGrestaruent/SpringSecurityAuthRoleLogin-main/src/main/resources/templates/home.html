@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MG Restaurant - Best Food in Town</title>
+    <link rel="stylesheet" th:href="@{/css/stylee1.css}" />
+</head>
+<body>
+
+<div class="header">
+    <div class="header-left">
+        <input type="text" placeholder="Search food, drinks...">
+    </div>
+    <div class="header-right">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/about}">About</a>
+        <a th:href="@{/menu}">Menu</a>
+        <a href="javascript:void(0)" onclick="goToLogin()">Login</a>
+    </div>
+</div>
+
+<h1>MG Restaurant</h1>
+
+<div class="main">
+    <div class="card">
+        <img th:src="@{/images/biriyani.jpeg}" alt="Delicious Food">
+        <button type="button" th:onclick="'window.location.href=\'' + @{/menu} + '\''">
+            Biriyani
+        </button>
+    </div>
+    <div class="card">
+        <img th:src="@{/images/springroll.jpeg}" alt="Delicious Food">
+        <button type="button" th:onclick="'window.location.href=\'' + @{/menu} + '\''">
+            Spring Roll
+        </button>
+    </div>
+    <div class="card">
+        <img th:src="@{/images/gralicnan.jpeg}" alt="Delicious Food">
+        <button type="button" th:onclick="'window.location.href=\'' + @{/menu} + '\''">
+            Garlic Naan
+        </button>
+    </div>
+    <div class="card">
+        <img th:src="@{/images/vegthali.jpeg}" alt="Delicious Food">
+        <button type="button" th:onclick="'window.location.href=\'' + @{/menu} + '\''">
+            Veg Thali
+        </button>
+    </div>
+</div>
+
+<div class="floating-checkout-btn">
+    <a th:href="@{/checkout}" class="checkout-circle">
+        <span class="cart-icon">Cart</span>
+        <span id="cart-count" class="cart-badge">0</span>
+    </a>
+</div>
+
+<footer>
+    <p>&copy; 2025 MG Restaurant. All Rights Reserved.</p>
+    <p>123 Food Street, Banjara Hills, Hyderabad, Telangana, India</p>
+    <p>Phone: +91 98765 43210 | Email: info@mgrestaurant.com</p>
+  </footer>
+
+<!-- PASTE THIS LINE HERE -->
+<div id="loginToast" style="position:fixed; top:30px; left:50%; transform:translateX(-50%);
+     background:#333; color:white; padding:16px 32px; border-radius:50px;
+     font-weight:bold; font-size:18px; box-shadow:0 8px 25px rgba(0,0,0,0.3);
+     z-index:9999; opacity:0; transition:all 0.5s; pointer-events:none;">
+</div>
+<!-- END OF TOAST -->
+
+  <script>
+    function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        const count = cart.reduce((sum, item) => sum + 1, 0);
+        document.getElementById('cart-count').textContent = count;
+    }
+
+    // Update count when page loads
+    updateCartCount();
+
+    // Update count every time something is added (optional – you can call this from addToCart)
+    window.addEventListener('storage', updateCartCount);
+
+
+function goToLogin() {
+        const toast = document.getElementById('loginToast');
+        toast.textContent = "Redirecting to Login...";
+         toast.style.background = "#27ae60";
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateX(-50%) translateY(0)';
+
+        setTimeout(() => {
+            window.location.href = "/login";
+        }, 1200);
+    }
+
+
+</script>
+
+</body>
+</html>

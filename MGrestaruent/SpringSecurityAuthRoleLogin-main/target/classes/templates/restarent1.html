@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MG Restaurant - Best Food in Town</title>
+    <link rel="stylesheet" th:href="@{/css/stylee1.css}" />
+</head>
+<body>
+
+<div class="header">
+    <div class="header-left">
+        <input type="text" placeholder="Search food, drinks...">
+    </div>
+    <div class="header-right">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/about}">About</a>
+        <a th:href="@{/menu}">Menu</a>
+        <!-- CORRECT FUNCTION NAME -->
+        <a href="javascript:void(0)" onclick="goToLogout()">Logout</a>
+    </div>
+</div>
+
+<h1>MG Restaurant</h1>
+
+<div class="main">
+    <div class="card">
+        <img th:src="@{/images/biriyani.jpeg}" alt="Delicious Food">
+        <button type="button" th:onclick="'window.location.href=\'' + @{/menu} + '\''">
+            Biriyani
+        </button>
+    </div>
+    <div class="card">
+        <img th:src="@{/images/springroll.jpeg}" alt="Delicious Food">
+        <button type="button" th:onclick="'window.location.href=\'' + @{/menu} + '\''">
+            Spring Roll
+        </button>
+    </div>
+    <div class="card">
+        <img th:src="@{/images/gralicnan.jpeg}" alt="Delicious Food">
+        <button type="button" th:onclick="'window.location.href=\'' + @{/menu} + '\''">
+            Garlic Naan
+        </button>
+    </div>
+    <div class="card">
+        <img th:src="@{/images/vegthali.jpeg}" alt="Delicious Food">
+        <button type="button" th:onclick="'window.location.href=\'' + @{/menu} + '\''">
+            Veg Thali
+        </button>
+    </div>
+</div>
+
+<div class="floating-checkout-btn">
+    <a th:href="@{/checkout}" class="checkout-circle">
+        <span class="cart-icon">Cart</span>
+        <span id="cart-count" class="cart-badge">0</span>
+    </a>
+</div>
+
+<footer>
+    <p>© 2025 MG Restaurant. All Rights Reserved.</p>
+    <p>123 Food Street, Banjara Hills, Hyderabad, Telangana, India</p>
+    <p>Phone: +91 98765 43210 | Email: info@mgrestaurant.com</p>
+</footer>
+
+<!-- Beautiful Toast for Logout -->
+<div id="logoutToast" style="position:fixed; top:30px; left:50%; transform:translateX(-50%);
+     background:#e74c3c; color:white; padding:16px 32px; border-radius:50px;
+     font-weight:bold; font-size:18px; box-shadow:0 8px 25px rgba(0,0,0,0.3);
+     z-index:9999; opacity:0; transition:all 0.5s; pointer-events:none;">
+</div>
+
+<script>
+    // Update cart count
+    function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        document.getElementById('cart-count').textContent = cart.length;
+    }
+    updateCartCount();
+    window.addEventListener('storage', updateCartCount);
+
+    // LOGOUT WITH TOAST (NOW WORKS PERFECTLY)
+    function goToLogout() {
+        const toast = document.getElementById('logoutToast');
+        toast.textContent = "Logging you out...";
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateX(-50%) translateY(0)';
+
+        setTimeout(() => {
+            window.location.href = "/logout";   // This actually logs out in Spring Security
+        }, 1200);
+    }
+
+    // Show "Logout successful!" when redirected back after logout
+    if (window.location.search.includes('logout')) {
+        const toast = document.getElementById('logoutToast');
+        toast.textContent = "Logout successful! See you soon";
+        toast.style.background = "#27ae60";  
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateX(-50%) translateY(0)';
+
+        setTimeout(() => {
+            toast.style.opacity = '0';
+        }, 2500);
+
+        // Clean URL
+        history.replaceState(null, null, '/');
+    }
+</script>
+
+</body>
+</html>

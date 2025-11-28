@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - MG Restaurant</title>
+    <link rel="stylesheet" th:href="@{/css/stylee3.css}" />
+    <style>
+        .password-requirements {
+            font-size: 13px;
+            margin-top: 8px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 4px solid #ddd;
+        }
+        .requirement {
+            color: #e74c3c;
+            transition: color 0.3s;
+        }
+        .requirement.valid {
+            color: #27ae60;
+        }
+        #message {
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        button[type="submit"] {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        button[type="submit"].enabled {
+            opacity: 1;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="signup-form">
+    <h2>Create Account</h2>
+
+    <form th:action="@{/register}" method="post" onsubmit="return validateForm()">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required />
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" 
+                   id="password" 
+                   name="password" 
+                   required 
+                   onkeyup="checkPasswordStrength()" />
+
+            <!-- Password Rules -->
+            <div class="password-requirements">
+                <div id="length" class="requirement">At least 8 characters</div>
+                <div id="upper" class="requirement">One uppercase letter (A-Z)</div>
+                <div id="lower" class="requirement">One lowercase letter (a-z)</div>
+                <div id="number" class="requirement">One number (0-9)</div>
+                <div id="special" class="requirement">One symbol (!@#$%^&*)</div>
+            </div>
+
+            <div id="message"></div>
+        </div>
+
+        <button type="submit" id="signupBtn" disabled>Sign Up</button>
+    </form>
+
+    <p>Already have an account? <a th:href="@{/login}">Login here</a></p>
+    <p style="text-align:center; margin-top:10px;">
+        <a th:href="@{/}" style="color:#ff4500; font-weight:bold;">Back to Home</a>
+    </p>
+</div>
+
+<script>
+    const passwordInput = document.getElementById('password');
+    const signupBtn = document.getElementById('signupBtn');
+    const message = document.getElementById('message');
+
+    function checkPasswordStrength() {
+        const password = passwordInput.value;
+
+        // Check each rule
+        document.getElementById('length').classList.toggle('valid', password.length >= 8);
+        document.getElementById('upper').classList.toggle('valid', /[A-Z]/.test(password));
+        document.getElementById('lower').classList.toggle('valid', /[a-z]/.test(password));
+        document.getElementById('number').classList.toggle('valid', /\d/.test(password));
+        document.getElementById('special').classList.toggle('valid', /[!@#$%^&*]/.test(password));
+
+        // Check if all rules passed
+        const allValid = 
+            password.length >= 8 &&
+            /[A-Z]/.test(password) &&
+            /[a-z]/.test(password) &&
+            /\d/.test(password) &&
+            /[!@#$%^&*]/.test(password);
+
+        if (allValid) {
+            signupBtn.disabled = false;
+            signupBtn.classList.add('enabled');
+            message.textContent = "Strong password!";
+            message.style.color = "#27ae60";
+        } else {
+            signupBtn.disabled = true;
+            signupBtn.classList.remove('enabled');
+            message.textContent = "";
+        }
+    }
+
+    // Run on page load in case browser autofills
+    checkPasswordStrength();
+</script>
+
+</body>
+</html>

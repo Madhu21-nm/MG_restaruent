@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MG Restaurant — About Us</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fdfdfd;
+      color: #333;
+      line-height: 1.6;
+    }
+    header {
+      background: #8B0000;
+      color: white;
+      padding: 30px 0;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 36px;
+    }
+    header p {
+      margin: 5px 0 0 0;
+      font-size: 18px;
+    }
+    .about-section {
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: 20px auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .about-section h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 28px;
+      color: #8B0000;
+    }
+    .about-section .paragraph {
+      margin-bottom: 20px;
+    }
+    .back-btn {
+      display: inline-block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background-color: #8B0000;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      text-align: center;
+    }
+    footer {
+      background: #333;
+      color: #eee;
+      padding: 20px 0;
+      text-align: center;
+      margin-top: 40px;
+    }
+    footer p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>MG Restaurant</h1>
+    <p>Your cozy corner for home-style flavour & warm hospitality</p>
+  </header>
+
+  <!-- Back button -->
+  <div style="text-align:center;">
+    <a th:href="@{/}" class="back-btn">← Back to Restaurant</a>
+    <!-- Or use history.back(); as alternative if navigation history exists -->
+  </div>
+
+  <section class="about-section">
+    <h2>About Us</h2>
+
+    <div class="paragraph">
+      <strong>Our Beginning:</strong><br>
+      MG Restaurant began as a small family dream in Hyderabad. What started in 2010 as a tiny roadside eatery with just 8 tables, has now blossomed into a beloved dining spot — thanks to the passion of its founders and the support of many loyal customers. We believe good food brings people together, and from day one, that belief guided every decision we made.
+    </div>
+
+    <div class="paragraph">
+      <strong>Why “MG”?</strong><br>
+      The name MG comes from the initials of “Mohan & Geetha,” the husband-wife duo who started this place. Both grew up in close-knit families where cooking was always a way of sharing love. When they moved to the city and saw how hectic modern life had become, they envisioned a place where people could feel at home — enjoy simple, honest meals just like their childhood days.
+    </div>
+
+    <div class="paragraph">
+      <strong>Our Values & Philosophy:</strong><br>
+      At MG Restaurant, we believe in warmth, hospitality and authenticity. We source fresh, local ingredients, and craft dishes with care, respecting traditional flavours but welcoming subtle innovation. For us, it’s not just about feeding stomachs — it’s about nourishing memories, smiles, and community.
+    </div>
+
+    <div class="paragraph">
+      <strong>Where We're Located:</strong><br>
+      Our flagship branch stands in the heart of Hyderabad city, in Banjara Hills — easily accessible and surrounded by greenery. We took great care designing a cozy interior: warm lighting, wood-accent furniture, and soft music — so you feel relaxed whether you come alone or with family & friends.
+    </div>
+
+    <div class="paragraph">
+      <strong>Looking Ahead:</strong><br>
+      We aim to grow slowly but steadily. In the coming years, we hope to open new branches in other parts of the city, introduce seasonal specials inspired by local ingredients, and host occasional ‘community meals’ where regulars meet new people and celebrate together. Our mission remains the same: good food, shared joy.
+    </div>
+
+    <div class="paragraph">
+      <strong>We invite you:</strong><br>
+      Whether you’re stopping by for a quick lunch or a cozy dinner with loved ones — MG Restaurant welcomes you with open arms. We promise warmth, flavour and memories worth coming back for. See you soon at your table.
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 MG Restaurant. All Rights Reserved.</p>
+    <p>123 Food Street, Banjara Hills, Hyderabad, Telangana, India</p>
+    <p>Phone: +91 98765 43210 | Email: info@mgrestaurant.com</p>
+  </footer>
+
+</body>
+</html>

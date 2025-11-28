@@ -1,0 +1,139 @@
+/* stylee2.css – Beautiful Orange Theme for Login Page */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ff8a00, #e52e00, #ff5e3a);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.login-popup {
+    background: white;
+    width: 100%;
+    max-width: 420px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    animation: popup 0.6s ease-out;
+}
+
+@keyframes popup {
+    from { transform: scale(0.8); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+
+.login-popup h2 {
+    background: linear-gradient(to right, #ff6b00, #ff8c00);
+    color: white;
+    text-align: center;
+    padding: 25px 20px;
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+form {
+    padding: 40px 35px;
+}
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    display: block;
+    color: #444;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #ffd1b3;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.3s;
+    background-color: #fff8f0;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #ff6b00;
+    background-color: white;
+    box-shadow: 0 0 0 4px rgba(255, 107, 0, 0.2);
+    transform: scale(1.02);
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(to right, #ff6b00, #ff4500);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s;
+    box-shadow: 0 6px 15px rgba(255, 107, 0, 0.4);
+}
+
+button[type="submit"]:hover {
+    background: linear-gradient(to right, #ff4500, #ff6b00);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(255, 107, 0, 0.5);
+}
+
+button[type="submit"]:active {
+    transform: translateY(1px);
+}
+
+form p {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 15px;
+    color: #555;
+}
+
+form p a {
+    color: #ff6b00;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+form p a:hover {
+    color: #e52e00;
+    text-decoration: underline;
+}
+
+.text-center {
+    margin-top: 15px;
+}
+
+.text-center a {
+    color: #ff4500;
+    font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .login-popup {
+        border-radius: 15px;
+    }
+    form {
+        padding: 30px 25px;
+    }
+}

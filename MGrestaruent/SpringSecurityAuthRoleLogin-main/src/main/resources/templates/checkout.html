@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout - MG Restaurant</title>
+    <link rel="stylesheet" th:href="@{/css/stylee4.css}" />
+    <style>
+        body { font-family: Arial; background: #f4f4f4; padding: 20px; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #333; color: white; }
+        .total { font-size: 24px; font-weight: bold; text-align: right; margin: 20px 0; }
+        .btn-order { background: #28a745; color: white; padding: 15px 30px; font-size: 18px; border: none; border-radius: 8px; cursor: pointer; }
+        .btn-order:hover { background: #218838; }
+        .empty { text-align: center; color: #999; font-size: 20px; margin: 50px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 style="text-align:center; color:#333;">Your Cart</h1>
+
+    <div id="cart-items"></div>
+
+    <div class="total" id="total-amount">Total: ₹0</div>
+
+    <div style="text-align:center; margin-top:30px;">
+        <button onclick="placeOrder()" class="btn-order">Place Order</button>
+        <a th:href="@{/menu}" style="margin-left:20px; color:#d00; text-decoration:underline;">← Back to Menu</a>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    // Load cart from localStorage and display it
+    function loadCart() {
+        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        const container = document.getElementById('cart-items');
+        const totalEl = document.getElementById('total-amount');
+
+        if (cart.length === 0) {
+            container.innerHTML = '<p class="empty">Your cart is empty<br><a th:href="@{/menu}">Go add some delicious food!</a></p>';
+            totalEl.textContent = 'Total: ₹0';
+            return;
+        }
+
+        let total = 0;
+        let html = '<table><tr><th>Item</th><th>Price</th><th>Action</th></tr>';
+
+        cart.forEach((item, index) => {
+            total += item.price;
+            html += `
+                <tr>
+                    <td><strong>${item.name}</strong></td>
+                    <td>₹${item.price}</td>
+                    <td><button onclick="removeItem(${index})" style="background:#dc3545;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Remove</button></td>
+                </tr>`;
+        });
+
+        html += '</table>';
+        container.innerHTML = html;
+        totalEl.textContent = `Total: ₹${total}`;
+    }
+
+    function removeItem(index) {
+        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        cart.splice(index, 1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        loadCart();
+    }
+
+    // FINAL placeOrder() – with login check + backend call
+    function placeOrder() {
+        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        if (cart.length === 0) {
+            alert("Your cart is empty!");
+            return;
+        }
+
+        fetch('/api/check-auth', { credentials: 'include' })
+            .then(response => {
+                if (response.ok) {
+                    // Logged in → send order to backend
+                    return fetch('/order/place-order', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            /* CSRF will be added automatically because we disabled it */
+                        },
+                        body: JSON.stringify({ cart: cart })
+                    });
+                } else {
+                    // Not logged in → redirect to login and come back
+                    window.location.href = "/login?redirect=/checkout";
+                }
+            })
+            .then(res => res?.json())
+            .then(data => {
+                if (data?.success) {
+                    alert("ORDER PLACED SUCCESSFULLY!\n\nTotal: ₹" + data.total + "\nYour food is on the way!");
+                    localStorage.removeItem('cart');
+                    loadCart();
+                    window.location.href = "/order-success";  // or "/menu"
+                }
+            })
+            .catch(err => console.error(err));
+    }
+
+    // Load cart when page opens
+    loadCart();
+    /*]]>*/
+</script>
+
+</body>
+</html>

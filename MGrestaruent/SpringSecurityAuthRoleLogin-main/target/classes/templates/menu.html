@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu - MG Restaurant</title>
+    <link rel="stylesheet" th:href="@{/css/stylee4.css}" />
+</head>
+<body>
+
+    <!-- TOP BAR – Home (Left) + Cart (Right) -->
+<div style="position:fixed; top:0; left:0; right:0; background:rgba(255,255,255,0.95); backdrop-filter:blur(10px); 
+            padding:15px 30px; display:flex; justify-content:space-between; align-items:center; 
+            z-index:9999; box-shadow:0 4px 20px rgba(0,0,0,0.1); border-bottom:1px solid #eee;">
+
+    <!-- LEFT: Home Button -->
+    <a th:href="@{/}" 
+       style="background:linear-gradient(135deg,#ff6b00,#ff4500); color:white; padding:14px 32px; 
+              text-decoration:none; border-radius:50px; font-size:18px; font-weight:bold;
+              box-shadow:0 8px 25px rgba(255,100,0,0.4); transition:all 0.3s; display:inline-flex; align-items:center; gap:10px;">
+        Home
+    </a>
+
+    <!-- CENTER: Hi / Menu / Logo -->
+    <div style="position:absolute; left:50%; transform:translateX(-50%);">
+        <h1>Menu</h1>
+        <!-- Or use a logo/image instead:
+        <img src="/images/logo.png" alt="Logo" style="height:40px;">
+        -->
+    </div>
+
+    <!-- RIGHT: Cart Button -->
+    <a th:href="@{/checkout}"
+       style="background:linear-gradient(135deg,#28a745,#1e7e34); color:white; padding:14px 32px; 
+              text-decoration:none; border-radius:50px; font-size:18px; font-weight:bold;
+              box-shadow:0 8px 25px rgba(40,167,69,0.4); transition:all 0.3s; display:inline-flex; align-items:center; gap:10px; position:relative;">
+        Cart
+        <!-- Optional cart item count badge -->
+        <!-- <span style="position:absolute; top:-8px; right:-8px; background:#dc3545; color:white; 
+                      border-radius:50%; width:24px; height rubble:24px; font-size:12px; display:flex; 
+                      align-items:center; justify-content:center;">3</span> -->
+    </a>
+</div>
+
+<!-- Add some top margin so content doesn't hide under the bar -->
+<div style="margin-top:100px;"> </div>
+
+    <div class="menu-grid" id="menu-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:20px; padding:20px;"></div>
+
+    <!-- JS -->
+    <script>
+        // THIS FUNCTION WAS MISSING BEFORE → NOW IT WORKS
+        function formatPrice(p) { return '₹' + p; }
+
+        function addToCart(item) {
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            cart.push(item);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(item.name + ' added to cart!');
+        }
+
+        const menu = [
+            { id: 1, name: "Veg Spring Roll", price: 130, img: "https://via.placeholder.com/300x200?text=Veg+Spring+Roll" },
+            { id: 2, name: "Paneer Butter Masala", price: 260, img: "https://via.placeholder.com/300x200?text=Paneer+Butter+Masala" },
+            { id: 3, name: "Garlic Naan", price: 85, img: "https://via.placeholder.com/300x200?text=Garlic+Naan" },
+            { id: 4, name: "Biriyani", price: 220, img: "https://via.placeholder.com/300x200?text=Chicken+Sandwich" },
+            { id: 5, name: "Veg Thali", price: 350, img: "https://via.placeholder.com/300x200?text=Veg+Thali" },
+            { id: 6, name: "Cold Coffee", price: 140, img: "https://via.placeholder.com/300x200?text=Cold+Coffee" }
+        ];
+
+        const grid = document.getElementById('menu-grid');
+        menu.forEach(item => {
+            const div = document.createElement('div');
+            div.style = 'border:1px solid #ddd; border-radius:10px; overflow:hidden; text-align:center; background:white; box-shadow:0 2px 8px rgba(0,0,0,0.1);';
+            div.innerHTML = `
+                <img src="${item.img}" style="width:100%; height:180px; object-fit:cover;">
+                <div style="padding:15px;">
+                    <h3 style="margin:0 0 10px 0; color:#333;">${item.name}</h3>
+                    <p style="font-size:20px; font-weight:bold; color:#d00; margin:10px 0;">${formatPrice(item.price)}</p>
+                    <button onclick='addToCart(${JSON.stringify(item)})' 
+                            style="background:#28a745; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-size:16px;">
+                        Add to Cart
+                    </button>
+                </div>
+            `;
+            grid.appendChild(div);
+        });
+
+
+    </script>
+
+</body>
+</html>

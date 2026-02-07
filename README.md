@@ -1,6 +1,6 @@
 #MG restaruent
 
-i create this project for testing my java and spring boot skills and with my skills i create perfect project for a dummy restaruent site for food ordering
+I create this project for testing my java and spring boot skills and with my skills i create perfect project for a dummy restaruent site for food ordering
 
 #How to use this project
 
@@ -18,7 +18,7 @@ inside the folder name called application.properties
 spring.datasource.username=root
 spring.datasource.password="enter your password here"
 
-rename user name and password of ur database like mysql etc.,
+rename user name and password of your database like mysql etc.,
 
 #step-4
 inside the location run the file 
